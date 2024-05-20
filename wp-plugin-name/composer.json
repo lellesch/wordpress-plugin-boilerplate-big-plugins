@@ -1,0 +1,64 @@
+{
+    "autoload": {
+        "classmap": [
+          "classes/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+          "classes/"
+        ]
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "wp-coding-standards/wpcs": "^3.1",
+        "squizlabs/php_codesniffer": "^3.9",
+        "phpstan/phpstan": "^1.10"
+    },
+    "scripts": {
+        "lint": "phpcs --standard=WordPress classes/",
+        "lint-fix": "phpcbf --standard=WordPress classes/",
+        "analyze": "phpstan analyse -l max classes/",
+        "autoload": [
+            "@composer dump-autoload"
+        ],
+        "pre-archive-cmd": [
+            "@composer install --no-dev --optimize-autoloader",
+            "@composer dump-autoload -o"
+        ],
+        "after-archive-cmd": [
+            "@composer install"
+        ],
+        "dist": [
+            "@pre-archive-cmd",
+            "composer archive --file='dein-plugin-name' --format=zip",
+            "@after-archive-cmd"
+        ]
+    },
+    "config": {
+        "platform-check": "php-only",
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "archive": {
+            "exclude": [
+                "node_modules",
+                ".gitignore",
+                "phpunit.xml.dist",
+                "composer.lock",
+                "bin",
+                "docs",
+                "*.zip",
+                ".*",
+                "/*.{js,json,md}",
+                "*.{jsx,pcss,sass,scss}",
+                "test/",
+                "tests/"
+            ],
+            "format": "zip"
+        }
+    }
+}
