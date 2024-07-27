@@ -53,7 +53,7 @@ class I18n
 
         load_plugin_textdomain($this->text_domain,
             false,
-            str_replace('src/core/', '', dirname(plugin_basename(__FILE__)) . '/languages'));
+            str_replace('classes/core/', '', dirname(plugin_basename(__FILE__)) . '/languages'));
 
 
     }
